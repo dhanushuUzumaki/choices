@@ -6,7 +6,7 @@ import appTheme from './assets/colors.json';
 const navigationOptions = {
   title: 'Choices',
   headerStyle: { backgroundColor: appTheme.primary },
-  headerTitleStyle: { color: appTheme.primaryText, textAlign: 'center', alignSelf: 'center' }
+  headerTitleStyle: { color: appTheme.primaryText, textAlign: 'center', alignSelf: 'center', fontSize: 13 }
 };
 
 export default StackNavigator({

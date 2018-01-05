@@ -5,53 +5,59 @@ import PropTypes from 'prop-types';
 import Options from './Options';
 import appTheme from '../assets/colors.json';
 import Welcome from './Welcome';
+import AddOptionModal from './AddOptionModal';
 
 class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      options: [{
-        text: 'Pizza',
-        value: 'Pizza'
-      }, {
-        text: 'Dosa',
-        value: 'Dosa'
-      }, {
-        text: 'Masal Dosa',
-        value: 'Masal Dosa'
-      }, {
-        text: 'Poori',
-        value: 'Poori'
-      }, {
-        text: 'Burger',
-        value: 'Burger'
-      }, {
-        text: 'Sandwich',
-        value: 'Sandwich'
-      }, {
-        text: 'Chicken Briyani',
-        value: 'Chicken Briyani'
-      }, {
-        text: 'Khuska',
-        value: 'Khuska'
-      }, {
-        text: 'Samosa',
-        value: 'Samosa'
-      }, {
-        text: 'Donut',
-        value: 'Donut'
-      }, {
-        text: 'Truffle',
-        value: 'Truffle'
-      }]
+      options: [],
+      showAddOptionModal: false,
+      newOption: ''
     };
 
     this.renderContent = () => this._renderContent();
     this.onChoosing = chosenOption => this._onChoosing(chosenOption);
+    this.showAddOption = () => this._showAddOption();
+    this.closeAddOption = () => this._closeAddOption();
+    this.onChangeText = text => this._onChangeText(text);
+    this.addOption = () => this._addOption();
   }
 
   _onChoosing (chosenOption) {
     this.props.navigation.navigate('Choice', { selectedOption: chosenOption.text });
+  }
+
+  _showAddOption () {
+    this.setState({
+      showAddOptionModal: true
+    });
+  }
+
+  _closeAddOption () {
+    this.setState({
+      showAddOptionModal: false
+    });
+  }
+
+  _onChangeText (text) {
+    this.setState({
+      newOption: text
+    });
+  }
+
+  _addOption () {
+    const { newOption, options } = this.state;
+    const newOptions = JSON.parse(JSON.stringify(options));
+    newOptions.push({
+      text: newOption,
+      value: newOption
+    });
+    this.setState({
+      options: newOptions,
+      newOption: '',
+      showAddOptionModal: false
+    });
   }
 
   _renderContent () {
@@ -74,13 +80,24 @@ class Home extends Component {
           hidden
         />
         {this.renderContent()}
+
+        <AddOptionModal
+          visible={this.state.showAddOptionModal}
+          onAccept={this.addOption}
+          onDecline={this.closeAddOption}
+          onChangeText={this.onChangeText}
+          value={this.state.newOption}
+        >
+          Are you sure?
+        </AddOptionModal>
+
         <ActionButton
           buttonColor={appTheme.secondary}
           buttonTextStyle={{ color: appTheme.secondaryText }}
           useNativeFeedback
           fixNativeFeedbackRadius
           nativeFeedbackRippleColor={appTheme.secondaryDark}
-          onPress={() => this.props.navigation.navigate('Choice', { selectedOption: 'Has to be done' })}
+          onPress={this.showAddOption}
         />
       </View>
     );
