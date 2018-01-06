@@ -96,9 +96,7 @@ class Home extends Component {
           onDecline={this.closeAddOption}
           onChangeText={this.onChangeText}
           value={this.state.newOption}
-        >
-          Are you sure?
-        </AddOptionModal>
+        />
 
         <ActionButton
           buttonColor={appTheme.secondary}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import appTheme from '../assets/colors.json';
+import { Button } from './Common';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,10 +26,20 @@ const styles = StyleSheet.create({
 });
 
 class Choice extends Component {
+
+  constructor (props) {
+    super(props);
+    this.onButtonPress = () => this._onButtonPress();
+  }
+
+  _onButtonPress () {
+    this.props.navigation.goBack();
+  }
+
   render () {
     const { container, textStyle, optionStyle } = styles;
     const { selectedOption } = this.props.navigation.state.params;
-    const helperText = 'The Enterprise has chosen this for you';
+    const helperText = 'Shuffle and Random made this selection B)';
     return (
       <View style={container}>
         <Text style={textStyle}>
@@ -37,6 +48,11 @@ class Choice extends Component {
         <Text style={optionStyle}>
           {selectedOption}
         </Text>
+        <Button
+          onPress={this.onButtonPress}
+        >
+          Back
+        </Button>
       </View>
     );
   }
