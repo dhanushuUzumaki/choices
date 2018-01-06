@@ -11,10 +11,7 @@ class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      options: [{
-        text: 'Dosa is a great thing you dont know the power of dosa',
-        value: 'Dosa'
-      }],
+      options: [],
       showAddOptionModal: false,
       newOption: ''
     };
@@ -99,9 +96,7 @@ class Home extends Component {
           onDecline={this.closeAddOption}
           onChangeText={this.onChangeText}
           value={this.state.newOption}
-        >
-          Are you sure?
-        </AddOptionModal>
+        />
 
         <ActionButton
           buttonColor={appTheme.secondary}
