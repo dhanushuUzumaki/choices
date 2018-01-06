@@ -27,7 +27,7 @@ class Options extends React.Component {
     const { options } = this.props;
     const shuffledOptions = _.shuffle(options);
     const len = shuffledOptions.length;
-    const chosenOption = _.random(len-1);
+    const chosenOption = _.random(len - 1);
     this.props.onChoosing(shuffledOptions[chosenOption]);
   }
 
@@ -37,7 +37,7 @@ class Options extends React.Component {
       <ScrollView style={{ maxHeight: '89%' }}>
         <View style={styles.container}>
           {
-            (() => options.map(option => <OptionItem {...option} key={option.value} />))()
+            (() => options.map((option, index) => <OptionItem {...option} key={option.value} id={index} onDelete={this.props.onDelete} />))()
           }
         </View>
       </ScrollView>
@@ -67,7 +67,8 @@ class Options extends React.Component {
 
 Options.propTypes = {
   options: PropTypes.array,
-  onChoosing: PropTypes.func
+  onChoosing: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 export default Options;

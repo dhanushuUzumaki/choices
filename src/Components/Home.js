@@ -11,7 +11,10 @@ class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      options: [],
+      options: [{
+        text: 'Dosa is a great thing you dont know the power of dosa',
+        value: 'Dosa'
+      }],
       showAddOptionModal: false,
       newOption: ''
     };
@@ -22,6 +25,7 @@ class Home extends Component {
     this.closeAddOption = () => this._closeAddOption();
     this.onChangeText = text => this._onChangeText(text);
     this.addOption = () => this._addOption();
+    this.onDelete = index => this._onDelete(index);
   }
 
   _onChoosing (chosenOption) {
@@ -60,13 +64,21 @@ class Home extends Component {
     });
   }
 
+  _onDelete (index) {
+    const options = JSON.parse(JSON.stringify(this.state.options));
+    options.splice(index, 1);
+    this.setState({
+      options
+    });
+  }
+
   _renderContent () {
     const { options } = this.state;
     let content;
     if (options.length < 1) {
       content = <Welcome />;
     } else {
-      content = <Options options={options} onChoosing={this.onChoosing} />;
+      content = <Options options={options} onChoosing={this.onChoosing} onDelete={this.onDelete} />;
     }
     return content;
   }
