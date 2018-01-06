@@ -11,10 +11,7 @@ class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      options: [{
-        text: 'Dosa is a great thing you dont know the power of dosa',
-        value: 'Dosa'
-      }],
+      options: [],
       showAddOptionModal: false,
       newOption: ''
     };
